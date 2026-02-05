@@ -14,7 +14,7 @@
 Клонируйте проект с GitHub или скачайте его в виде ZIP-архива и распакуйте:
 
 ```bash
-git clone https://github.com/ваш_пользователь/ваш_репозиторий.git
+git clone https://github.com/Ivan-Ryazanov/DEV-kt1
 ```
 
 ### 2. Открытие проекта

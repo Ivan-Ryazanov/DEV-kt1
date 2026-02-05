@@ -6,15 +6,15 @@
         public double Coordinates;
         public double Condition;
 
-        private readonly double _cityAstart = 1010;
-        private readonly double _cityAend = 1020;
-
-        private readonly double _cityBstart = 3565;
-        private readonly double _cityBend = 3580;
-
-        private readonly double _cityCstart = -2530;
-        private readonly double _cityCend = -2500;
-
+        // Расширенные диапазоны городов
+        private readonly (double start, double end)[] Cities = new[]
+        {
+            (1010.0, 1020.0),  // Город A
+            (3565.0, 3580.0),  // Город B
+            (-2530.0, -2500.0), // Город C
+            (5000.0, 5020.0),   // Новый город D
+            (-4000.0, -3990.0)  // Новый город E
+        };
 
         public Driver(double averageSpeed, double initialCoordinates)
         {
@@ -25,58 +25,73 @@
 
         public double Drive(double time)
         {
-            if (Condition <= 0)
+            if (IsBroken())
             {
-                Console.WriteLine("Ошибка: Техническое состояние машины 0%");
+                Console.WriteLine("Машина сломана! Нужно отремонтировать.");
                 return 0;
             }
 
             double distance = AverageSpeed * time;
-            Coordinates += distance; // + дистанция 
+            Coordinates += distance;
 
-            double deterioration = Math.Floor(distance / 100);
-            Condition -= deterioration * 0.01;
-
-
-            if (Condition < 0) Condition = 0;
+            UpdateCondition(distance);
 
             return distance;
         }
 
         public double DriveBack(double time)
         {
-            if (Condition <= 0)
+            if (IsBroken())
             {
-                Console.WriteLine("Ошибка: Техническое состояние машины 0%");
+                Console.WriteLine("Машина сломана! Нужно отремонтировать.");
                 return 0;
             }
 
             double distance = AverageSpeed * time;
-            Coordinates -= distance; // - дистанция 
+            Coordinates -= distance;
 
-            double deterioration = Math.Floor(distance / 100);
-            Condition -= deterioration * 0.01;
-
-            if (Condition < 0) Condition = 0;
+            UpdateCondition(distance);
 
             return distance;
         }
 
+        private void UpdateCondition(double distance)
+        {
+            double deterioration = Math.Floor(distance / 100);
+            Condition -= deterioration * 0.01;
+            if (Condition < 0) Condition = 0;
+        }
+
         public void PrintLocation()
         {
-            if (Coordinates >= _cityAstart && Coordinates <= _cityAend)
-                Console.WriteLine("Машина в городе A");
-            else if (Coordinates >= _cityBstart && Coordinates <= _cityBend)
-                Console.WriteLine("Машина в городе B");
-            else if (Coordinates >= _cityCstart && Coordinates <= _cityCend)
-                Console.WriteLine("Машина в городе C");
-            else
-                Console.WriteLine("Машина на трассе");
+            string location = "на трассе";
+
+            foreach (var city in Cities)
+            {
+                if (Coordinates >= city.start && Coordinates <= city.end)
+                {
+                    location = $"в городе с координатами от {city.start} до {city.end}";
+                    break;
+                }
+            }
+
+            Console.WriteLine($"Машина {location}");
         }
 
         public void PrintCarTechnicalState()
         {
             Console.WriteLine($"Техническое состояние машины: {Condition:F2}%");
+        }
+
+        public bool IsBroken()
+        {
+            return Condition <= 0;
+        }
+
+        public void Repair()
+        {
+            Condition = 100;
+            Console.WriteLine("Машина отремонтирована до 100%.");
         }
     }
 }

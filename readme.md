@@ -37,3 +37,7 @@
 ## Использование
 
 Для запуска проекта выполните сборку и запуск программы. В консоли вы увидите пошаговый вывод состояния автомобиля и его положения после каждой операции.
+
+## Ссылки
+- Установка: [install.md](https://github.com/Ivan-Ryazanov/DEV-kt1/blob/master/install.md)
+- Изменения: [changelog.md](https://github.com/Ivan-Ryazanov/DEV-kt1/blob/master/changelog.md)

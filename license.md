@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2024-2025 Bachana Taganashvili
+Copyright ©2026 Ryazanov Ivan
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
